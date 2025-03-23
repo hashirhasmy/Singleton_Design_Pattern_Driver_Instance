@@ -8,9 +8,10 @@ import utility.WebDriverConfiguration;
 
 public class LoginPage {
 
-    WebDriver driver = WebDriverConfiguration.getInstance().getDriver();
+    WebDriver driver;
 
     public LoginPage(WebDriver driver){
+        this.driver = driver;
         PageFactory.initElements(driver,this);
     }
 

@@ -7,9 +7,10 @@ import org.openqa.selenium.support.PageFactory;
 import utility.WebDriverConfiguration;
 
 public class LoginSuccessPage {
-    WebDriver driver = WebDriverConfiguration.getInstance().getDriver();
+    WebDriver driver;
 
     public LoginSuccessPage(WebDriver driver){
+        this.driver = driver;
         PageFactory.initElements(driver,this);
     }
 

@@ -4,7 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class WebDriverConfiguration {
-    private WebDriver driver;
+
+    //private WebDriver driver;
+
+    //Reason for use ThreadLocal driver:
+    //Ensure tests are independant and thread-safe (Avoid conflicts in shared resources during parallel execution)
+    private static ThreadLocal<WebDriver> webDriverThreadLocal = new ThreadLocal<>();
     private static WebDriverConfiguration myObj;
 
     public static WebDriverConfiguration getInstance() {
@@ -17,19 +22,22 @@ public class WebDriverConfiguration {
     }
 
     public void openBrowser() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        //driver = new ChromeDriver();
+        webDriverThreadLocal.set(new ChromeDriver());
+        getDriver().manage().window().maximize();
     }
     public void navigateToURL() {
         String url = "https://demo.guru99.com/test/newtours/index.php";
-        driver.get(url);
+        getDriver().get(url);
     }
 
     public WebDriver getDriver() {
-        return driver;
+        //return driver;
+        return webDriverThreadLocal.get();
     }
     public void closeBrowser() {
-        driver.quit();
+        //driver.quit();
+        getDriver().quit();
     }
 
 }
